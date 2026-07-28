@@ -1,6 +1,6 @@
 # Monitor de Tipo de Cambio
 
-CLI en Python que consulta tipos de cambio en tiempo real desde ExchangeRate-API y muestra la equivalencia de cualquier moneda respecto al dólar estadounidense (USD).
+CLI en Python que consulta tipos de cambio en tiempo real desde ExchangeRate-API y permite consultar de forma interactiva la equivalencia de distintas monedas respecto al dólar estadounidense (USD).
 
 ## ¿Por qué este proyecto?
 
@@ -8,15 +8,19 @@ Construí este proyecto porque me interesa trabajar con empresas del mercado **n
 
 ## Características
 
-- Consulta tipos de cambio en tiempo real desde una API REST.
+- Consulta tipos de cambio en tiempo real desde **ExchangeRate-API**.
 - Soporta más de **160 monedas** utilizando su código ISO de tres letras.
-- Entrada insensible a mayúsculas y minúsculas (`mxn`, `MXN` o `Mxn` funcionan igual).
-- Muestra la equivalencia de **1 USD** en la moneda seleccionada.
+- Permite realizar múltiples consultas sin reiniciar la aplicación.
+- La entrada es insensible a mayúsculas y minúsculas (`mxn`, `MXN` o `Mxn` funcionan igual).
+- Permite salir del programa escribiendo `salir`.
 - Manejo de errores para:
   - Falta de conexión a Internet.
   - Tiempo de espera agotado (`timeout`).
+  - Errores HTTP devueltos por la API.
+  - Errores reportados por la propia API (como una API key inválida o cuota excedida).
   - Códigos de moneda inexistentes.
 - Protección de la API key mediante variables de entorno utilizando un archivo `.env`.
+- Código organizado en funciones con responsabilidades separadas para facilitar su mantenimiento.
 
 ## Requisitos
 
@@ -59,11 +63,18 @@ python main.py
 
 6. Escribe el código ISO de tres letras de la moneda que deseas consultar (por ejemplo: `MXN`, `EUR` o `JPY`).
 
+7. Para finalizar el programa, escribe:
+
+```text
+salir
+```
+
 ## Tecnologías
 
 - **Python**
 - **requests** — consumo de la API REST.
 - **python-dotenv** — gestión de variables de entorno.
+- **typing** — anotaciones de tipos (`Optional`, `dict`, `float` y `None`).
 - **ExchangeRate-API** — obtención de tipos de cambio en tiempo real.
 
 ## Mejoras futuras
@@ -72,4 +83,4 @@ python main.py
 - Convertir entre dos monedas arbitrarias (por ejemplo, MXN → EUR).
 - Mostrar el nombre completo de la moneda además del código ISO.
 - Mostrar la fecha y hora de la última actualización proporcionada por la API.
-- Agregar una interfaz gráfica o una versión web del proyecto.
+- Empaquetar la aplicación como una herramienta instalable mediante `pip`.
